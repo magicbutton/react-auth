@@ -37,7 +37,7 @@ jobs:
       run: npm run test:coverage
       
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         file: ./coverage/lcov.info
         fail_ci_if_error: false
@@ -63,7 +63,7 @@ jobs:
       run: npm run build
       
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: dist
         path: dist/
@@ -111,14 +111,13 @@ jobs:
         
     - name: Create Release
       if: steps.version-check.outputs.version-changed == 'true'
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: ncipollo/release-action@v1
       with:
-        tag_name: v${{ steps.version-check.outputs.package-version }}
-        release_name: Release v${{ steps.version-check.outputs.package-version }}
+        tag: v${{ steps.version-check.outputs.package-version }}
+        name: Release v${{ steps.version-check.outputs.package-version }}
         body: |
           Changes in this Release
           - Updated @magicbutton/auth to version ${{ steps.version-check.outputs.package-version }}
         draft: false
         prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
