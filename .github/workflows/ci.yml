@@ -93,7 +93,7 @@ jobs:
     - name: Check if version changed
       id: version-check
       run: |
-        CURRENT_VERSION=$(npm view @magicbutton/auth version 2>/dev/null || echo "0.0.0")
+        CURRENT_VERSION=$(npm view @magicbutton.cloud/auth version 2>/dev/null || echo "0.0.0")
         PACKAGE_VERSION=$(node -p "require('./package.json').version")
         echo "current-version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
         echo "package-version=$PACKAGE_VERSION" >> $GITHUB_OUTPUT
@@ -117,7 +117,7 @@ jobs:
         name: Release v${{ steps.version-check.outputs.package-version }}
         body: |
           Changes in this Release
-          - Updated @magicbutton/auth to version ${{ steps.version-check.outputs.package-version }}
+          - Updated @magicbutton.cloud/auth to version ${{ steps.version-check.outputs.package-version }}
         draft: false
         prerelease: false
         token: ${{ secrets.GITHUB_TOKEN }}

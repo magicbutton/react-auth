@@ -1,8 +1,8 @@
-# @magicbutton/auth
+# @magicbutton.cloud/auth
 
 A comprehensive React authentication package that provides JWT token authentication with support for query parameter tokens, MSAL (Microsoft Authentication Library) integration, and development mode testing.
 
-[![npm version](https://badge.fury.io/js/%40magicbutton%2Fauth.svg)](https://badge.fury.io/js/%40magicbutton%2Fauth)
+[![npm version](https://badge.fury.io/js/@magicbutton.cloud%2Fauth.svg)](https://badge.fury.io/js/@magicbutton.cloud%2Fauth)
 [![CI/CD](https://github.com/magicbutton/auth/actions/workflows/ci.yml/badge.svg)](https://github.com/magicbutton/auth/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/magicbutton/auth/branch/main/graph/badge.svg)](https://codecov.io/gh/magicbutton/auth)
 
@@ -21,7 +21,7 @@ A comprehensive React authentication package that provides JWT token authenticat
 ## Installation
 
 ```bash
-npm install @magicbutton/auth
+npm install @magicbutton.cloud/auth
 ```
 
 ### Peer Dependencies
@@ -36,7 +36,9 @@ npm install react react-dom
 
 ```tsx
 import React from 'react';
-import { MagicButtonAuthProvider, useAuth } from '@magicbutton/auth';
+import { MagicButtonAuthProvider, useAuth } from '@magicbutton.cloud/auth';
+// Or use the convenience alias:
+// import { AuthProvider, useAuth } from '@magicbutton.cloud/auth';
 
 // Your app component
 const App: React.FC = () => {
@@ -248,7 +250,7 @@ const AdminOnly: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 ### Token Validation
 
 ```tsx
-import { validateToken, parseToken, isTokenExpired } from '@magicbutton/auth';
+import { validateToken, parseToken, isTokenExpired } from '@magicbutton.cloud/auth';
 
 const checkToken = async (tokenString: string) => {
   const isValid = await validateToken(tokenString);
@@ -264,7 +266,7 @@ const checkToken = async (tokenString: string) => {
 ### URL Token Extraction
 
 ```tsx
-import { extractTokenFromUrl, removeTokenFromUrl } from '@magicbutton/auth';
+import { extractTokenFromUrl, removeTokenFromUrl } from '@magicbutton.cloud/auth';
 
 // Get token from URL
 const token = extractTokenFromUrl();
@@ -279,7 +281,7 @@ The package includes comprehensive test utilities:
 
 ```tsx
 import { render, screen } from '@testing-library/react';
-import { MagicButtonAuthProvider } from '@magicbutton/auth';
+import { MagicButtonAuthProvider } from '@magicbutton.cloud/auth';
 
 const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <MagicButtonAuthProvider config={{ development: true }}>

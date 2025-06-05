@@ -1,5 +1,5 @@
 {
-  "name": "@magicbutton/auth",
+  "name": "@magicbutton.cloud/auth",
   "version": "1.0.0",
   "description": "Authentication package for MagicButton applications with React context, JWT tokens, and MSAL integration",
   "main": "dist/index.js",

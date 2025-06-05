@@ -115,7 +115,7 @@ git push --tags
 
 ```bash
 # Check current published version
-npm view @magicbutton/auth version
+npm view @magicbutton.cloud/auth version
 
 # Check package.json version
 node -p "require('./package.json').version"
@@ -127,7 +127,7 @@ npm publish --access public            # Actual publish
 
 ## Package Information
 
-- **Package Name**: `@magicbutton/auth`
+- **Package Name**: `@magicbutton.cloud/auth`
 - **Registry**: https://registry.npmjs.org
 - **Access**: Public
-- **Scope**: @magicbutton
+- **Scope**: @magicbutton.cloud

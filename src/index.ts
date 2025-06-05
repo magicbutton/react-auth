@@ -1,6 +1,9 @@
 // Main exports
 export { MagicButtonAuthProvider, useAuth } from './components/MagicButtonAuthProvider';
 
+// Convenience aliases
+export { MagicButtonAuthProvider as AuthProvider } from './components/MagicButtonAuthProvider';
+
 // Type exports
 export type {
   AuthToken,
@@ -8,6 +11,9 @@ export type {
   AuthContextValue,
   AuthOrigin,
 } from './types';
+
+// Convenience type aliases
+export type { MagicButtonAuthConfig as AuthConfig } from './types';
 
 // Component exports
 export { DevAuthComponent } from './components/DevAuthComponent';
