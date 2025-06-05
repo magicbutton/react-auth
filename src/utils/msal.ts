@@ -5,11 +5,16 @@ export const createMsalConfig = (config: MagicButtonAuthConfig['msalConfig']): C
   if (!config?.clientId) {
     throw new Error('MSAL clientId is required');
   }
+  
+  if (!config?.tenantId) {
+    throw new Error('MSAL tenantId is required');
+  }
 
   return {
     auth: {
       clientId: config.clientId,
-      authority: config.authority || 'https://login.microsoftonline.com/common',
+      authority: `https://login.microsoftonline.com/${config.tenantId}`,
+      // Automatically use current host as redirect URI if not specified
       redirectUri: config.redirectUri || window.location.origin,
     },
     cache: {

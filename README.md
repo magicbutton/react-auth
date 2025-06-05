@@ -74,6 +74,22 @@ export default Root;
 
 ## Configuration
 
+### Azure AD Setup
+
+Before using MSAL authentication, you need to register your application in Azure AD:
+
+1. **Register App in Azure AD**:
+   - Go to [Azure Portal](https://portal.azure.com) → Azure Active Directory → App registrations
+   - Click "New registration"
+   - Set redirect URI to your app URL (e.g., `http://localhost:3000` for dev)
+
+2. **Get Required Values**:
+   - **Client ID**: Found in app registration overview
+   - **Tenant ID**: Found in Azure AD overview or app registration overview
+   - **Redirect URI**: Configure in Azure to match your domain (e.g., `http://localhost:3000` for dev, `https://yourdomain.com` for prod)
+   
+3. **Important**: The package automatically uses `window.location.origin` as the redirect URI, so ensure your Azure app registration includes your domain(s)
+
 ### Development Mode
 
 For development and testing, enable development mode:
@@ -100,11 +116,39 @@ For production with Microsoft Azure AD:
     development: false,
     msalConfig: {
       clientId: 'your-azure-client-id',
-      authority: 'https://login.microsoftonline.com/your-tenant-id',
-      redirectUri: 'https://your-app.com'
+      tenantId: 'your-tenant-id'
+      // redirectUri is optional - defaults to current host origin
     },
     onAuthStateChange: (isAuthenticated, token) => {
       console.log('Auth state changed:', isAuthenticated, token);
+    }
+  }}
+>
+  <App />
+</MagicButtonAuthProvider>
+```
+
+### Next.js Environment Variables
+
+For Next.js applications, use environment variables with the `NEXT_PUBLIC_` prefix to make them available in the browser:
+
+```bash
+# .env.local
+NEXT_PUBLIC_AZURE_CLIENT_ID=your-azure-client-id
+NEXT_PUBLIC_AZURE_TENANT_ID=your-tenant-id
+# NEXT_PUBLIC_REDIRECT_URI is optional - defaults to current host
+```
+
+Then use them in your component:
+
+```tsx
+<MagicButtonAuthProvider 
+  config={{
+    development: process.env.NODE_ENV === 'development',
+    msalConfig: {
+      clientId: process.env.NEXT_PUBLIC_AZURE_CLIENT_ID!,
+      tenantId: process.env.NEXT_PUBLIC_AZURE_TENANT_ID!
+      // redirectUri automatically uses window.location.origin
     }
   }}
 >
@@ -145,7 +189,7 @@ interface MagicButtonAuthConfig {
   development?: boolean;
   msalConfig?: {
     clientId: string;
-    authority?: string;
+    tenantId: string;
     redirectUri?: string;
   };
   onAuthStateChange?: (isAuthenticated: boolean, token?: AuthToken) => void;
@@ -338,6 +382,45 @@ npm run type-check
 
 # Run linting
 npm run lint
+```
+
+## Troubleshooting
+
+### MSAL Configuration Issues
+
+**"MSAL tenantId is required" Error:**
+- Ensure `tenantId` is provided in your `msalConfig`
+- Verify the tenant ID is correct (found in Azure AD overview)
+- For Next.js, use `NEXT_PUBLIC_AZURE_TENANT_ID` environment variable
+
+**Authentication Failures:**
+- Verify the app is registered in the correct Azure AD tenant
+- Check that the redirect URI in Azure matches your app URL exactly
+- Ensure the application has the necessary permissions in Azure AD
+
+**Environment Variables Not Working:**
+- Next.js: Use `NEXT_PUBLIC_` prefix for client-side variables
+- Restart development server after adding new environment variables
+- Check `.env.local` file is in the root directory
+
+**Redirect URI Issues:**
+- Package automatically uses `window.location.origin` as redirect URI
+- Ensure your Azure app registration includes all domains you'll use
+- For development: `http://localhost:3000`, `http://localhost:3001`, etc.
+- For production: `https://yourdomain.com`
+
+### Common Error Messages
+
+```bash
+# Missing tenant ID
+Error: MSAL tenantId is required
+
+# Solution: Add tenantId to config
+msalConfig: {
+  clientId: process.env.NEXT_PUBLIC_AZURE_CLIENT_ID!,
+  tenantId: process.env.NEXT_PUBLIC_AZURE_TENANT_ID! // Add this
+  // redirectUri automatically uses window.location.origin
+}
 ```
 
 ## License

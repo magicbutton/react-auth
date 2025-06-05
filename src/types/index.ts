@@ -11,7 +11,7 @@ export interface MagicButtonAuthConfig {
   development?: boolean;
   msalConfig?: {
     clientId: string;
-    authority?: string;
+    tenantId: string;
     redirectUri?: string;
   };
   onAuthStateChange?: (isAuthenticated: boolean, token?: AuthToken) => void;
