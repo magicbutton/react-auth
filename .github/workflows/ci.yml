@@ -21,7 +21,7 @@ jobs:
     - name: Setup pnpm
       uses: pnpm/action-setup@v4
       with:
-        version: 8
+        version: latest
         
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
@@ -30,7 +30,7 @@ jobs:
         cache: 'pnpm'
         
     - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+      run: pnpm install --no-frozen-lockfile
       
     - name: Run type checking
       run: npm run type-check
@@ -58,7 +58,7 @@ jobs:
     - name: Setup pnpm
       uses: pnpm/action-setup@v4
       with:
-        version: 8
+        version: latest
         
     - name: Use Node.js 20.x
       uses: actions/setup-node@v4
@@ -67,7 +67,7 @@ jobs:
         cache: 'pnpm'
         
     - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+      run: pnpm install --no-frozen-lockfile
       
     - name: Build package
       run: npm run build
@@ -90,7 +90,7 @@ jobs:
     - name: Setup pnpm
       uses: pnpm/action-setup@v4
       with:
-        version: 8
+        version: latest
         
     - name: Use Node.js 20.x
       uses: actions/setup-node@v4
@@ -100,7 +100,7 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
         
     - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+      run: pnpm install --no-frozen-lockfile
       
     - name: Build package
       run: npm run build

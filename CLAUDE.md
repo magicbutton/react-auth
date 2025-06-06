@@ -83,3 +83,29 @@ The provider checks for authentication in this priority order:
 - **Production**: Uses MSAL for Azure AD authentication, no manual token input
 
 The package is designed to be zero-config for basic usage while supporting advanced configuration for production deployments.
+
+## NPM Publishing
+
+### Automated Publishing Setup
+
+This repository has automated npm publishing configured with GitHub Actions:
+
+- **NPM Access Token**: An "Automation" token has been placed in GitHub Secrets as `NPM_TOKEN`
+- **2FA Bypass**: The automation token bypasses 2FA requirements for publishing
+- **Automatic Publishing**: GitHub Actions automatically publishes to npm when version changes are detected on the main branch
+- **Manual Publishing**: Available via the "Release" workflow in GitHub Actions
+
+### Publishing Process
+
+1. **Version Updates**: Use `npm version patch|minor|major` to bump version
+2. **Automatic**: Push to main branch triggers automatic publishing if version changed
+3. **Manual**: Use GitHub Actions "Release" workflow for manual version bumping and publishing
+
+### Important Notes
+
+- No OTP/2FA codes required for publishing via GitHub Actions
+- The automation token handles authentication automatically
+- Manual publishing from local machine would still require OTP (not recommended)
+- Always use GitHub Actions for publishing to ensure consistency
+- **Package Manager**: Workflows are configured to use `pnpm` (not npm) for dependency management
+- **Lockfile**: Uses `pnpm-lock.yaml` for dependency locking
